@@ -1,0 +1,15 @@
+# Departments App
+
+My plan is constructing a
+web application for persistence CRUD demonstration with further
+listed technologies involved:
+<ul>
+<li>Spring Boot </li>
+<li>Spring MVC</li>
+<li>Spring HATEOAS</li>
+<li>Spring Security</li>
+<li>Hibernate</li>
+<li>MySql DB</li>
+<li>Log4j</li>
+</ul>
+
