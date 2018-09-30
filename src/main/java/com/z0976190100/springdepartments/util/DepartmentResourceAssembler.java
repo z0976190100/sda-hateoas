@@ -14,17 +14,12 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 public class DepartmentResourceAssembler implements ResourceAssembler<Department, Resource<Department>> {
 
     @Override
-    public Resource<Department> toResource(Department entity){
+    public Resource<Department> toResource(Department department){
 
-        try {
-            return new Resource<Department>(entity,
-                    linkTo(methodOn(DepartmentController.class).one(entity.getId())).withSelfRel(),
-                    linkTo(methodOn(DepartmentController.class).all()).withRel("employees"));
-        } catch (DepartmentNotFoundException e) {
-            e.printStackTrace();
-            // Q: null??? are we good here?
-            return null;
-        }
+            return new Resource<Department>(department,
+                    linkTo(methodOn(DepartmentController.class).one(department.getId())).withSelfRel(),
+                    linkTo(methodOn(DepartmentController.class).all()).withRel("departments"));
+            
     }
 }
 

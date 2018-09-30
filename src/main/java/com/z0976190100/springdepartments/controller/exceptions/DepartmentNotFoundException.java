@@ -1,6 +1,6 @@
 package com.z0976190100.springdepartments.controller.exceptions;
 
-public class DepartmentNotFoundException extends Exception {
+public class DepartmentNotFoundException extends RuntimeException {
 
     private Long id;
 
