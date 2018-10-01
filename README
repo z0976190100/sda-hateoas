@@ -1,8 +1,11 @@
 # Departments App
 
-My plan is constructing a
-web application for persistence CRUD demonstration with further
-listed technologies involved:
+The goal is to build a carcass for RESTful
+web application with CRUD operability demonstration.
+It got to achieve such HATEOAS-driven features as:
+discoverable API containing hyperlinks to resources
+error handling with discriptive messaging
+Stack is:
 <ul>
 <li>Spring Boot </li>
 <li>Spring MVC</li>
