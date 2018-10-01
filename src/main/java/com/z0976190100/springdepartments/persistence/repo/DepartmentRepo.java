@@ -12,5 +12,5 @@ import java.util.List;
 public interface DepartmentRepo extends JpaRepository<Department, Long>,
         PagingAndSortingRepository<Department, Long> {
 
-    List<Department> findDepartmentByTitle (String title);
+   // List<Department> findDepartmentByTitle (String title);
 }
