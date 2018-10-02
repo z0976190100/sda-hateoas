@@ -1,10 +1,12 @@
 # Departments App
 
 The goal is to build a carcass for RESTful
-web application with CRUD operability demonstration.
+web application with CRUD operability, persistence layer,
+authentication and validation based on Spring "best practices" (or guides, at minimum).
 It got to achieve such HATEOAS-driven features as:
-discoverable API containing hyperlinks to resources
-error handling with discriptive messaging
+full-steam ahead on exploiting HTTP functionality - methods, error codes, redirection and etc.
+dynamic discoverable API containing hyperlinks based on resources
+error handling with descriptive messaging in HAL-JSON manner
 Stack is:
 <ul>
 <li>Spring Boot </li>
@@ -15,4 +17,5 @@ Stack is:
 <li>MySql DB</li>
 <li>Log4j</li>
 </ul>
+...to be continued...
 

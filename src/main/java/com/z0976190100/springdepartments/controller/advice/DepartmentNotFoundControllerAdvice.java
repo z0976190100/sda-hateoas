@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
@@ -16,10 +15,11 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class DepartmentNotFoundControllerAdvice extends ResponseEntityExceptionHandler {
 
     //TODO: return is bad
-    @ResponseBody
+    // TODO: turn this to ResourceNotFoundHandler
+    // @ResponseBody
     @ExceptionHandler(DepartmentNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    ResponseEntity employeeNotFoundHandler(DepartmentNotFoundException ex) {
+    ResponseEntity departmentNotFoundHandler(DepartmentNotFoundException ex) {
         return ResponseEntity.notFound().build();//.ex.getMessage();
     }
 

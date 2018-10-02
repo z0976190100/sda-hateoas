@@ -4,6 +4,7 @@ import com.z0976190100.springdepartments.controller.exceptions.DepartmentNotFoun
 import com.z0976190100.springdepartments.persistence.entity.Department;
 import com.z0976190100.springdepartments.persistence.repo.DepartmentRepo;
 import com.z0976190100.springdepartments.util.DepartmentResourceAssembler;
+import org.springframework.hateoas.MediaTypes;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.ResponseEntity;
@@ -16,10 +17,9 @@ import java.util.stream.Collectors;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
-import static org.springframework.http.ResponseEntity.created;
 
 @RestController
-@RequestMapping("departments/")
+@RequestMapping(value = "departments/", produces = MediaTypes.HAL_JSON_UTF8_VALUE)
 public class DepartmentController {
 
     private final DepartmentRepo departmentRepo;
@@ -32,28 +32,23 @@ public class DepartmentController {
 
     }
 
-    // Aggregate root
-
     @GetMapping("/")
     public Resources<Department> all() {
 
         List<Resource<Department>> departments = departmentRepo.findAll().stream()
                 .map(departmentResourceAssembler::toResource)
                 .collect(Collectors.toList());
-// TODO: null proceeding (404)
         return new Resources(departments,
                 linkTo(methodOn(DepartmentController.class).all()).withSelfRel()); // example from here http://spring.io/guides/tutorials/rest/
     }
 
-    // Single item
 
-    // Q: will client ask resource by id? what if by TITLE? or client always knows ids?
+    // QUNG-FUSED:
     @GetMapping("/{id}")
     public Resource<Department> one(@PathVariable Long id) throws DepartmentNotFoundException {
 
         Department department = departmentRepo.findById(id)
                 .orElseThrow(() -> new DepartmentNotFoundException(id));
-// TODO: null proceeding (404)
         return departmentResourceAssembler.toResource(department);
 
     }

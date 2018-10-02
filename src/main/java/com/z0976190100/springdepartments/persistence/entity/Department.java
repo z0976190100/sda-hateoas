@@ -1,12 +1,21 @@
 package com.z0976190100.springdepartments.persistence.entity;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Component;
+
 import javax.persistence.*;
 
-// TODO: lombok
 // TODO: finals- are necessary?
 // TODO: configure table, column properties and etc.
 
+@Data
 @Entity
+//@NoArgsConstructor(access = AccessLevel.PRIVATE)
+//@AllArgsConstructor
+@Component
 public class Department {
 
     @Id
@@ -14,7 +23,34 @@ public class Department {
     private Long id;
     private String title;
 
-    // only for the sake of JPA, so its protected
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Department)) return false;
+
+        Department that = (Department) o;
+
+        if (!id.equals(that.id)) return false;
+        if (!title.equals(that.title)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id.hashCode();
+        result = 31 * result + title.hashCode();
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "Department [id=%d, title='%s']",
+                id, title);
+    }
+  // only for the sake of JPA, so its protected
     protected Department() {
     }
 
@@ -38,30 +74,4 @@ public class Department {
         this.title = title;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Department)) return false;
-
-        Department that = (Department) o;
-
-        if (!getId().equals(that.getId())) return false;
-        if (!getTitle().equals(that.getTitle())) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = getId().hashCode();
-        result = 31 * result + getTitle().hashCode();
-        return result;
-    }
-
-    @Override
-    public String toString() {
-        return String.format(
-                "Department [id=%d, title='%s']",
-                id, title);
-    }
 }
