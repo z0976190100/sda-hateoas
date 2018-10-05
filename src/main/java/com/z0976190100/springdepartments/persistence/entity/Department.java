@@ -1,12 +1,12 @@
 package com.z0976190100.springdepartments.persistence.entity;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 // TODO: finals- are necessary?
 // TODO: configure table, column properties and etc.
@@ -15,7 +15,6 @@ import javax.persistence.*;
 @Entity
 //@NoArgsConstructor(access = AccessLevel.PRIVATE)
 //@AllArgsConstructor
-@Component
 public class Department {
 
     @Id
@@ -54,7 +53,8 @@ public class Department {
     protected Department() {
     }
 
-    public Department(String title) {
+    public Department(Long id, String title) {
+        this.id = id;
         this.title = title;
     }
 

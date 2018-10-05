@@ -1,0 +1,2 @@
+INSERT INTO springdepartapp.department(id, title) VALUES (1, "firstone-test");
+INSERT INTO springdepartapp.department (id, title) VALUES (2, "secone-test");

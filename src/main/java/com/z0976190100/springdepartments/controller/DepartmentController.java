@@ -3,7 +3,9 @@ package com.z0976190100.springdepartments.controller;
 import com.z0976190100.springdepartments.controller.exceptions.DepartmentNotFoundException;
 import com.z0976190100.springdepartments.persistence.entity.Department;
 import com.z0976190100.springdepartments.persistence.repo.DepartmentRepo;
+import com.z0976190100.springdepartments.service.DepartmentService;
 import com.z0976190100.springdepartments.util.DepartmentResourceAssembler;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.MediaTypes;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
@@ -19,23 +21,24 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @RestController
-@RequestMapping(value = "departments/", produces = MediaTypes.HAL_JSON_UTF8_VALUE)
+//@RequestMapping(value = "/departments", produces = MediaTypes.HAL_JSON_UTF8_VALUE)
 public class DepartmentController {
 
-    private final DepartmentRepo departmentRepo;
+
+    private final DepartmentService departmentService;
     private final DepartmentResourceAssembler departmentResourceAssembler;
 
-    DepartmentController(DepartmentRepo departmentRepo,
+    DepartmentController(DepartmentService departmentService,
                          DepartmentResourceAssembler departmentResourceAssembler) {
-        this.departmentRepo = departmentRepo;
+        this.departmentService = departmentService;
         this.departmentResourceAssembler = departmentResourceAssembler;
 
     }
 
-    @GetMapping("/")
+    @GetMapping(value = "/departments", produces = MediaTypes.HAL_JSON_UTF8_VALUE)
     public Resources<Department> all() {
 
-        List<Resource<Department>> departments = departmentRepo.findAll().stream()
+        List<Resource<Department>> departments = departmentService.findAll().stream()
                 .map(departmentResourceAssembler::toResource)
                 .collect(Collectors.toList());
         return new Resources(departments,
@@ -47,7 +50,7 @@ public class DepartmentController {
     @GetMapping("/{id}")
     public Resource<Department> one(@PathVariable Long id) throws DepartmentNotFoundException {
 
-        Department department = departmentRepo.findById(id)
+        Department department = departmentService.findById(id)
                 .orElseThrow(() -> new DepartmentNotFoundException(id));
         return departmentResourceAssembler.toResource(department);
 
@@ -58,7 +61,7 @@ public class DepartmentController {
     ResponseEntity<?> newDepartment(@RequestBody Department department) throws URISyntaxException {
 
         Resource<Department> resource = departmentResourceAssembler
-                .toResource(departmentRepo.save(department));
+                .toResource(departmentService.save(department));
 
         return ResponseEntity
                 .created(new URI(resource.getId().expand().getHref()))
